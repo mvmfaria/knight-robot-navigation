@@ -10,7 +10,7 @@ private:
     std::vector<Cell> grid;
 
 public:
-    Storage(int h, int w, Coordinate target);
+    Storage(int h, int w, Coordinate target, std::vector<Coordinate>& obstacles);
     int getHeight() const;
     int getWidth() const;
     int getSize() const;
@@ -18,6 +18,6 @@ public:
     int getIndex(Coordinate coord) const;
     Coordinate getCoordinateFromIndex(int index) const;
     Cell getCell(Coordinate coord) const;
-    void setCell(int pos, Cell value);
+    void setCell(Coordinate coord, Cell value);
     bool isValid(Coordinate coord) const;
 };

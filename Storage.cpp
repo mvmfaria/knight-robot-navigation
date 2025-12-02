@@ -1,8 +1,14 @@
 #include "Storage.h"
 
-Storage::Storage(int h, int w, Coordinate target) : height(h), width(w), target(target), grid(h * w, Cell::EMPTY) {
+Storage::Storage(int h, int w, Coordinate target, std::vector<Coordinate>& obstacles) : height(h), width(w), target(target), grid(h * w, Cell::EMPTY) {
     if (isValid(target)) {
-        setCell(getIndex(target), Cell::TARGET);
+        setCell(target, Cell::TARGET);
+    }
+
+    for (const auto& obs : obstacles) {
+        if (isValid(obs) && obs != target) {
+            setCell(obs, Cell::OBSTACLE);
+        }
     }
 }
 
@@ -30,8 +36,8 @@ Cell Storage::getCell(Coordinate coord) const {
     return grid[getIndex(coord)];
 }
 
-void Storage::setCell(int pos, Cell value) {
-    grid[pos] = value;
+void Storage::setCell(Coordinate coord, Cell value) {
+    grid[getIndex(coord)] = value;
 }
 
 bool Storage::isValid(Coordinate coord) const {
