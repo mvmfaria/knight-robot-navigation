@@ -1,8 +1,13 @@
 #include "Storage.h"
+#include <stdexcept>
+#include <string>
 
 Storage::Storage(int h, int w, Coordinate target, std::vector<Coordinate>& obstacles) : height(h), width(w), target(target), grid(h * w, Cell::EMPTY) {
     if (isValid(target)) {
         setCell(target, Cell::TARGET);
+    }
+    else {
+        throw std::runtime_error("A coordenada final (" + std::to_string(target.x) + ", " + std::to_string(target.y) + ") está fora dos limites ou em um obstáculo.");
     }
 
     for (const auto& obs : obstacles) {
@@ -30,6 +35,12 @@ Coordinate Storage::getTarget() const {
 
 int Storage::getIndex(Coordinate coord) const {
     return coord.y * width + coord.x; 
+}
+
+Coordinate Storage::getCoordinateFromIndex(int index) const {
+    int x = index % width;
+    int y = index / width;
+    return {x, y};
 }
 
 Cell Storage::getCell(Coordinate coord) const {

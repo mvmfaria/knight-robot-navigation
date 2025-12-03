@@ -1,4 +1,4 @@
-#include "Reader.h"
+#include "Helper.h"
 #include <fstream>
 #include <stdexcept>
 #include <iostream>
@@ -26,4 +26,24 @@ Input Reader::load(const std::string& filename) {
 
     arquivo.close();
     return data;
+}
+
+void Reader::save(const std::string& filename, const std::vector<Coordinate>& path) {
+    std::ofstream arquivo(filename);
+
+    if (!arquivo.is_open()) {
+        throw std::runtime_error("Não foi gerar o arquivo com a solução!");
+    }
+
+    if (path.empty()) {
+        arquivo << "Para essa configuração, não é possível encontrar um caminho!" << std::endl;
+        arquivo.close();
+        return;
+    }
+
+    for (const auto& coord : path) {
+        arquivo << coord.x << " " << coord.y << std::endl;
+    }
+
+    arquivo.close();
 }

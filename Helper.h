@@ -14,4 +14,5 @@ struct Input {
 class Reader {
 public:
     static Input load(const std::string& filename);
+    static void save(const std::string& filename, const std::vector<Coordinate>& path);
 };

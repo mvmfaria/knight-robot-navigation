@@ -38,3 +38,23 @@ std::vector<int> bfs(const Storage& storage, const Robot& robot) {
 
     return parents;
 }
+
+std::vector<Coordinate> path(const Storage& storage, const std::vector<int>& parents, Coordinate start, Coordinate target) {
+    std::vector<Coordinate> result;
+    int targetIndex = storage.getIndex(target);
+    int startIndex = storage.getIndex(start);
+
+    if (parents[targetIndex] == -1) {
+        return result;
+    }
+
+    for (int at = targetIndex; at != startIndex; at = parents[at]) {
+        result.push_back(storage.getCoordinateFromIndex(at));
+    }
+
+    result.push_back(start);
+    
+    std::reverse(result.begin(), result.end());
+
+    return result;
+}
