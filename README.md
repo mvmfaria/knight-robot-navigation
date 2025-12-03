@@ -27,7 +27,7 @@ Passos:
 
 4. Exibir plot/display com solução:
     ```bash
-     source ./.venv/bin/activate
+     pip install pygame
      python3 solution.py
      ```
      Lembrando que para funcionar é necessário que o arquivo `solucao.txt` precisa ter sido gerado.
